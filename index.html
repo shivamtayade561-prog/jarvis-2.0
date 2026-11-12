@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>JARVIS 2.0 — Command Center</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">J</div><div><b>JARVIS 2.0</b><small>BUSINESS COMMAND</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav active" data-page="dashboard">◈ <span>Dashboard</span></button>
+    <button class="nav" data-page="team">♙ <span>AI Team</span></button>
+    <button class="nav" data-page="tasks">▤ <span>Tasks</span></button>
+    <button class="nav" data-page="leads">◎ <span>Clients & Leads</span></button>
+    <button class="nav" data-page="assistant">✧ <span>Executive Chat</span></button>
+    <div class="side-bottom"><div class="owner-dot"></div><div><b>Workspace Owner</b><small>Local workspace</small></div></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><small class="eyebrow">CENTRAL INTELLIGENCE / WORKSPACE</small><h1 id="pageTitle">Dashboard</h1></div><div class="top-right"><span id="systemStatus" class="status"><i></i> Checking system</span><span class="avatar">S</span></div></header>
+    <section id="page-dashboard" class="page">
+      <div class="hero"><div><div class="eyebrow cyan">EXECUTIVE OVERVIEW</div><h2>Good to see you.<br><span>Let's build and grow.</span></h2><p>One command center for your business operations and specialist team.</p><button class="primary" data-go="assistant">Talk to Executive AI ↗</button></div><div class="orb-wrap"><div class="orb"><div class="orb-core">J</div></div><div class="orbit-caption">JARVIS EXECUTIVE</div></div></div>
+      <div class="metrics"><div class="metric"><small>TEAM ROLES</small><strong>11</strong><span>Specialist positions</span></div><div class="metric"><small>OPEN TASKS</small><strong id="taskMetric">0</strong><span>Saved in this browser</span></div><div class="metric"><small>ACTIVE LEADS</small><strong id="leadMetric">0</strong><span>Saved in this browser</span></div><div class="metric"><small>AI CONNECTION</small><strong class="small-value" id="aiMetric">Not connected</strong><span>Provider verification pending</span></div></div>
+      <div class="section-head"><div><small class="eyebrow">COMMAND CENTER</small><h2>Quick actions</h2></div></div>
+      <div class="quick-grid"><button class="quick" data-go="team"><b>♙</b><strong>Meet the team</strong><small>View all 11 specialist roles</small></button><button class="quick" data-go="tasks"><b>▤</b><strong>Manage tasks</strong><small>Create and track business work</small></button><button class="quick" data-go="leads"><b>◎</b><strong>Manage leads</strong><small>Organize potential clients</small></button></div>
+      <p class="notice">Transparency: specialist roles and workflow tools are available. Autonomous agents and live AI-provider access are not yet connected.</p>
+    </section>
+    <section id="page-team" class="page hidden"><div class="section-head"><div><small class="eyebrow">SPECIALIST DIRECTORY</small><h2>Executive team</h2><p>All specialists report to the central JARVIS Executive.</p></div></div><div id="teamGrid" class="team-grid"></div></section>
+    <section id="page-tasks" class="page hidden"><div class="section-head"><div><small class="eyebrow">EXECUTION TRACKER</small><h2>Tasks</h2><p>Create tasks and assign a responsible specialist role.</p></div></div><form id="taskForm" class="form-card"><input id="taskTitle" placeholder="What needs to be done?" required><select id="taskOwner"></select><button class="primary">Add task</button></form><div id="taskList" class="list"></div></section>
+    <section id="page-leads" class="page hidden"><div class="section-head"><div><small class="eyebrow">CLIENT PIPELINE</small><h2>Clients & leads</h2><p>Keep track of potential website-development clients.</p></div></div><form id="leadForm" class="form-card"><input id="leadName" placeholder="Business / client name" required><input id="leadType" placeholder="Business type (e.g. hotel)"><select id="leadStage"><option>New</option><option>Researching</option><option>Contacted</option><option>Proposal</option><option>Won</option></select><button class="primary">Add lead</button></form><div id="leadList" class="list"></div></section>
+    <section id="page-assistant" class="page hidden"><div class="section-head"><div><small class="eyebrow">CENTRAL COORDINATION</small><h2>Executive chat</h2><p>Describe a goal and JARVIS will acknowledge it and help organize the next action.</p></div></div><div class="chat-card"><div class="chat-head"><div class="orb-mini">J</div><div><b>JARVIS Executive</b><small id="chatStatus">Workspace assistant · AI not connected</small></div></div><div id="messages" class="messages"><div class="bubble jarvis">Namaste. Main JARVIS Executive workspace hoon. Apna business goal ya task likho. Live AI connection abhi configured nahi hai.</div></div><form id="chatForm" class="chat-form"><input id="chatInput" placeholder="Type your business instruction..." required><button class="primary">Send</button></form></div></section>
+    <footer>JARVIS 2.0 <span>Separate project · AURA OS remains untouched</span></footer>
+  </main>
+</div>
+<script src="/app.js"></script>
+</body></html>
