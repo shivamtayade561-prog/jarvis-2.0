@@ -17,6 +17,7 @@ async function getGemini() {
 
   if (!genAI) {
     const { GoogleGenAI } = await import('@google/genai');
+
     genAI = new GoogleGenAI({
       apiKey: process.env.GEMINI_API_KEY
     });
@@ -56,27 +57,67 @@ app.post('/api/assistant', async (req, res) => {
   try {
     const ai = await getGemini();
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents: message,
-      config: {
-        systemInstruction:
-          'You are JARVIS 2.0, a helpful AI business assistant. ' +
-          'Respond clearly, honestly and practically. ' +
-          'Never claim an action was completed unless it really was.'
+    const models = [
+      'gemini-3.8-flash',
+      'gemini-3.6-flash'
+    ];
+
+    let lastError;
+
+    for (const model of models) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
+          contents: message,
+          config: {
+            systemInstruction:
+              'You are JARVIS 2.0, a helpful AI business assistant. ' +
+              'Respond clearly, honestly and practically. ' +
+              'Use simple Hinglish when appropriate. ' +
+              'Never claim an action was completed unless it really was. ' +
+              'Protect user privacy and never request API secrets.'
+          }
+        });
+
+        const reply = response.text;
+
+        if (!reply) {
+          throw new Error('Empty AI response');
+        }
+
+        return res.json({
+          reply,
+          mode: model === models[0]
+            ? 'gemini_primary'
+            : 'gemini_backup',
+          aiConnected: true
+        });
+
+      } catch (error) {
+        lastError = error;
+
+        const status =
+          error.status || error.code || 'unknown';
+
+        console.error(
+          'Gemini request failed:',
+          model,
+          'Status:',
+          status
+        );
       }
-    });
+    }
 
-    res.json({
-      reply: response.text || 'I could not generate a response.',
-      mode: 'gemini_live',
-      aiConnected: true
-    });
+    throw lastError || new Error('All models failed');
+
   } catch (error) {
-    console.error('Gemini API error:', error.message);
+    console.error(
+      'JARVIS AI connection failed:',
+      error.status || error.code || 'unknown'
+    );
 
-    res.status(500).json({
-      error: 'JARVIS could not connect to Gemini. Please try again.',
+    return res.status(503).json({
+      error: 'JARVIS is temporarily unable to respond. Please try again later.',
       aiConnected: false
     });
   }
@@ -87,6 +128,7 @@ app.get('*', (_req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`JARVIS 2.0 running on port ${PORT}`);
+  console.log('JARVIS 2.0 running on port ' + PORT);
 });
+
 
